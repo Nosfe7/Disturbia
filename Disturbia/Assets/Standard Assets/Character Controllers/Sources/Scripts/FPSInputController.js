@@ -1,5 +1,11 @@
 private var motor : CharacterMotor;
 
+var walk;
+var run;
+
+walk = motor.movement.maxForwardSpeed;
+run = motor.movement.maxForwardSpeed*2.5;
+
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(CharacterMotor);
@@ -27,10 +33,36 @@ function Update () {
 		directionVector = directionVector * directionLength;
 	}
 	
+	if (Input.GetKey(KeyCode.LeftShift)){
+		motor.movement.maxForwardSpeed = run;
+		motor.movement.maxSidewaysSpeed = run;
+	}
+	else {
+		motor.movement.maxForwardSpeed = walk;
+		motor.movement.maxSidewaysSpeed = walk;
+	}
 	// Apply the direction to the CharacterMotor
 	motor.inputMoveDirection = transform.rotation * directionVector;
 	motor.inputJump = Input.GetButton("Jump");
+	
 }
+
+/*Carica le immagini della "manina" come texture
+		(L'immagine della manina verrà ovviamente
+		sostituita dagli artisti con una più decente :) )*/
+
+function OnTriggerEnter (other:Collider){
+	if (other.gameObject.tag == "Interactive") { //quando è in prossimità di un oggetto di tipo "interattivo"..
+    	GameObject.Find("puntatore").SendMessage("playerNearObj");
+    }
+}
+
+function OnTriggerExit(collider:Collider ){
+    GameObject.Find("puntatore").SendMessage("playerFarObj");
+}
+
+
+
 
 // Require a character controller to be attached to the same game object
 @script RequireComponent (CharacterMotor)

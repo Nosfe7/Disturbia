@@ -3,9 +3,10 @@ using System.Collections;
 
 public class GUI : MonoBehaviour {
 
-	public Texture2D manina2;
-	public Texture2D manina;
-	
+	private Texture2D manina2;
+	private Texture2D manina;
+	private bool playerEnters;
+
 
 	bool GetLeftMouse() //Controlla se sto premendo il tasto sinistro del mouse
 	{
@@ -22,13 +23,27 @@ public class GUI : MonoBehaviour {
 		manina = (Texture2D)Resources.Load("manina");
 		manina2 = (Texture2D)Resources.Load ("manina2");
 	} 
-	
+
+	void playerNearObj() //il giocatore è vicino all'oggetto
+	{
+		playerEnters = true; 
+	}
+
+	void playerFarObj() //il giocatore è lontano dall'oggetto
+	{
+		playerEnters = false; 
+	}
 	// Update is called once per frame
 	void Update () {
-		if (GetLeftMouse ()) //Se sto premendo il tasto sinistro...
-			//carico manina2
-			GameObject.Find ("puntatore").guiTexture.texture = manina2;
-		else //Altrimenti carico manina 1
-			GameObject.Find ("puntatore").guiTexture.texture = manina;
+		if (playerEnters) {
+			if (GetLeftMouse ())
+				this.guiTexture.texture = manina2;
+			else 
+				this.guiTexture.texture = manina;
+		}
+		else 
+			this.guiTexture.texture = null;
 	}
+
+
 }
