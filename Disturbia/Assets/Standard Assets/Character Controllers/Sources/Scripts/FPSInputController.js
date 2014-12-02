@@ -1,7 +1,10 @@
 private var motor : CharacterMotor;
 
-var walk;
-var run;
+private var walk;
+private var run;
+private var gui;
+private var hitTag;
+private var inside;
 
 walk = motor.movement.maxForwardSpeed;
 run = motor.movement.maxForwardSpeed*2.5;
@@ -9,6 +12,13 @@ run = motor.movement.maxForwardSpeed*2.5;
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(CharacterMotor);
+	
+	walk = motor.movement.maxForwardSpeed;
+	run = motor.movement.maxForwardSpeed*2;
+	
+	gui = GameObject.Find("gui");
+
+
 }
 
 // Update is called once per frame
@@ -32,7 +42,9 @@ function Update () {
 		// Multiply the normalized direction vector by the modified length
 		directionVector = directionVector * directionLength;
 	}
-	
+
+	/*Run or move*/
+
 	if (Input.GetKey(KeyCode.LeftShift)){
 		motor.movement.maxForwardSpeed = run;
 		motor.movement.maxSidewaysSpeed = run;
@@ -44,26 +56,35 @@ function Update () {
 	// Apply the direction to the CharacterMotor
 	motor.inputMoveDirection = transform.rotation * directionVector;
 	motor.inputJump = Input.GetButton("Jump");
+
+	/*Raycast (controllo se è di fronte a un oggetto )*/
+	
+	// raycast direction
+	var ray : Ray = Camera.main.ViewportPointToRay (Vector3(0.5,0.5,0));
+	//hit object
+	var hit : RaycastHit;
+	
+	if (Physics.Raycast(ray,hit,10)){
+		hitTag = hit.transform.tag;
+		if (hitTag == "Interactive" && inside) { //quando è di fronte e di vicine a un oggetto "interattivo"..
+    		gui.SendMessage("Interacts",true);
+    	}
+    	else 
+    		gui.SendMessage("Interacts",false);
+	}
 	
 }
 
-/*Carica le immagini della "manina" come texture
-		(L'immagine della manina verrà ovviamente
-		sostituita dagli artisti con una più decente :) )*/
+/*COLLISIONE*/
 
 function OnTriggerEnter (other:Collider){
-	if (other.gameObject.tag == "Interactive") { //quando è in prossimità di un oggetto di tipo "interattivo"..
-    	GameObject.Find("puntatore").SendMessage("playerNearObj");
-    }
+	inside = true;
 }
 
 function OnTriggerExit(collider:Collider ){
-    GameObject.Find("puntatore").SendMessage("playerFarObj");
+    inside = false;
+
 }
-
-
-
-
 // Require a character controller to be attached to the same game object
 @script RequireComponent (CharacterMotor)
 @script AddComponentMenu ("Character/FPS Input Controller")
