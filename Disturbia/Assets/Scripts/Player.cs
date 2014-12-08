@@ -5,19 +5,17 @@ public class Player : MonoBehaviour {
 	private string hitTag;
 	private bool inside;
 	private GameObject gui;
-	private Ansia ansia;
 
 
 	// Use this for initialization
 	void Start () {
 		gui = GameObject.Find("gui");
-		ansia = Ansia.getInstance ();
 	}
 	// Update is called once per frame
 	void Update () {
 
 		/*BLUR E ANSIA*/
-		ansia.updateBlur (); //aggiorno effetto blur in funzione dell'ansia ad ogni frame
+		Ansia.updateBlur (); //aggiorno effetto blur in funzione dell'ansia ad ogni frame
 
 
 		/*RAYCAST (controllo se è di fronte a un oggetto )*/
@@ -43,37 +41,23 @@ public class Player : MonoBehaviour {
 	
 	public void OnTriggerEnter (Collider other){
 		inside = true;
-		ansia.setLevel (80);
+		Ansia.setLevel(80);
 	}
 	
 	public void OnTriggerExit(Collider collider ){
 		inside = false;
-		ansia.setLevel (0);
+		Ansia.setLevel (0);
 	}
 }
 
 public class Ansia {
 
-	private static Ansia instance;
-	private int level; //livello d'ansia
-	private MotionBlur blur; //effetto blur 
+	private static int level = 0; //livello d'ansia
+	private static MotionBlur blur = Camera.main.GetComponent<MotionBlur>(); //effetto blur 
 
-	private Ansia()
-	{
-		level = 0;
-		blur = Camera.main.GetComponent<MotionBlur>();
-	}
+	
 
-	public static Ansia getInstance()
-	{
-		if (instance == null){
-			instance = new Ansia();
-		}
-		
-		return instance;
-	}
-
-	public void setLevel(int value)
+	public static void setLevel(int value)
 	{
 		if (value>=0 && value<=100)
 			level = value;
@@ -85,7 +69,7 @@ public class Ansia {
 		}
 	}
 
-	public void updateBlur() //aggiorna l'effetto blur all'aumentare dell'ansia: più alta è l'ansia più evidente è l'effetto
+	public static void updateBlur() //aggiorna l'effetto blur all'aumentare dell'ansia: più alta è l'ansia più evidente è l'effetto
 	{
 		if (level >= 0 && level < 10)
 			blur.enabled = false;
