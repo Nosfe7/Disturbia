@@ -5,14 +5,17 @@ public class GUI : MonoBehaviour {
 
 	private Texture manina2;
 	private Texture manina;
-	private bool interacts;
-
-
+	private bool canInteract;
 
 
 	bool GetLeftMouse() //Controlla se sto premendo il tasto sinistro del mouse
 	{
 		return Input.GetKey(KeyCode.Mouse0);
+	}
+
+	public void CanInteract(bool value) //il giocatore può interagire ? 
+	{
+		canInteract = value;
 	}
 
 	// Use this for initialization
@@ -27,22 +30,19 @@ public class GUI : MonoBehaviour {
 		manina2 = (Texture)Resources.Load ("2D/puntatore_1");
 	} 
 
-	void Interacts(bool value) //il giocatore può interagire ? 
-	{
-		interacts = value;
-	}
+
 
 	// Update is called once per frame
 	void Update () {
-		if (interacts){
+		if (canInteract){
 
 			if (GetLeftMouse ())
-				this.guiTexture.texture = manina2;
+				guiTexture.texture = manina2; //tenere premuto trascinare oggetti 
 			else 
-				this.guiTexture.texture = manina;
+				guiTexture.texture = manina; 
 		}
 		else 
-			this.guiTexture.texture = null;
+			guiTexture.texture = null;
 	}
 
 
