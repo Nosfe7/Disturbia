@@ -11,6 +11,9 @@ public class Player : MonoBehaviour {
 	public Ansia ansia;
 	public ObjectInteraction objectInteraction;
 	public int numcibi;
+	//public int numvomiti;
+	public int points;
+
 
 	public bool isInside() {
 		return inside;
@@ -25,6 +28,10 @@ public class Player : MonoBehaviour {
 		ansia = new Ansia ();
 		objectInteraction = new ObjectInteraction ();
 		numcibi = 0;
+		//numvomiti = 0;
+		points = 0;
+		Screen.showCursor = false;
+
 	}
 	
 	// Update is called once per frame
@@ -44,17 +51,54 @@ public class Player : MonoBehaviour {
 		/*INTERAZIONE CON GLI OGGETTI*/
 		objectInteraction.HandleCollisions ();
 
-	
+		//Debug.Log (points);
+		if (points == 10)
+			GUIObject.getInstance.Vittoria ();
+
+		Debug.Log (points);
+		//Shortcut nel caso sia necessario uscire o riavviare forzatamente
+		if (Input.GetKey(KeyCode.Escape))
+		    Application.Quit();
+		if (Input.GetKey (KeyCode.R))
+			Application.LoadLevel ("level1");
 	}
 
 	/*COLLISIONI/TRIGGER*/
 	
 	public void OnTriggerEnter (Collider other){
 		inside = true;
+
 	}
 	
-	public void OnTriggerExit(Collider collider ){
+	public void OnTriggerExit(Collider other ){
 		inside = false;
+
+	
+				
+			/*//Vomito 1 volta : aumenta l'ansia 
+			if (PlayerObject.getInstance.numvomiti == 1) {
+				PlayerObject.getInstance.ansia.setLevel (PlayerObject.getInstance.ansia.getLevel () + 15);
+				//Debug.Log("CIAO");
+				GUIObject.getInstance.vomitoGUIText.text = "VOMITA ANCORA!";
+			}
+
+			else if (PlayerObject.getInstance.numvomiti == 2){
+				GUIObject.getInstance.vomitoGUIText.text = "VOMITA ANCORA!";
+			}
+
+			//Vomito 3 volte: diminuisce l'ansia
+			else if (PlayerObject.getInstance.numvomiti == 3){
+				PlayerObject.getInstance.ansia.setLevel (PlayerObject.getInstance.ansia.getLevel () - 20);
+				PlayerObject.getInstance.numvomiti = 0;
+			}
+			*/
+		Camera.main.particleSystem.Stop ();
+			
+		if (other.tag == "Bilancia")
+			GUIObject.getInstance.suBilancia = false;
+			//PlayerObject.getInstance.transform.position.z
+			
+
 	}
 }
 
@@ -108,7 +152,7 @@ public class ObjectInteraction {
 		RaycastHit hit = new RaycastHit();
 		
 		//lancio raggio e controllo il tag di cosa ho colpito 
-		if (Physics.Raycast(ray,out hit,100)){
+		if (Physics.Raycast(ray,out hit,0.5F)){
 			hitTag = hit.transform.tag;
 			if ((hitTag == "Mobile" || hitTag == "Cibo" || hitTag == "Bilancia" || hitTag=="Water") && PlayerObject.getInstance.isInside()) { //quando sono di fronte e vicino a un mobile o cibo
 				GUIObject.getInstance.CanInteract(true);
@@ -147,6 +191,9 @@ public class ObjectInteraction {
 				GUIObject.getInstance.CanInteract(false);//se non sono di fronte e vicino ad un oggetto, non posso interagire
 		}
 
+		else 
+			GUIObject.getInstance.CanInteract(false);//se non sono di fronte e vicino ad un oggetto, non posso interagire
+
 	}
 
 }
@@ -179,10 +226,10 @@ public class Ansia {
 		if (value>=0 && value<=100)
 			level = value;
 		else {
-			if (value > 100)
-				value = 100;
+			if (value> 100)
+				level = 100;
 			if (value < 0)
-				value = 0;
+				level = 0;
 		}
 	}
 
@@ -201,7 +248,8 @@ public class Ansia {
 		if (level >= 100)
 			GUIObject.getInstance.GameOver(); //se l'ansia raggiunge 100 è game over
 
-		Debug.Log (level);
+		GUIObject.getInstance.UpdateAnsiaGUI (level);
+
 	
 	}
 }
@@ -246,7 +294,6 @@ public class Fame {
 			if (level == 0)
 			{
 				GUIObject.getInstance.fameCountDown(timer);
-				timer=30;
 				if (timer < 0) 
 					GUIObject.getInstance.GameOver();//se non mangio entro 5 minuti è gameover
 			}
@@ -255,10 +302,11 @@ public class Fame {
 				if (timer < 0)
 				{ 
 					level-=1; //ogni minuto svuoto la barra fame di 4
-					timer = 5; //riset il timer a 5 minuti
+					timer = 3; //riset il timer a 5 minuti
 
 				}
-
+				if (level==0)
+					timer = 30;
 			}
 			timer-=Time.deltaTime;
 		}
@@ -301,7 +349,13 @@ public class Peso {
 			oldtimeseconds = timeseconds;
 		}
 
-		//
+		if ((int)timer%180 == 0 && (int)timer>0) {
+			//setta il timer della GUI: se non ti pesi entro 30 secondi aumenta l'ansia	GUIObject.getInstance.startTimer = true;
+			GUIObject.getInstance.startpesoTimer = true;
+			GUIObject.getInstance.pesoTimer = 30;
+			GUIObject.getInstance.pesoCount = true;
+		}
+		//Debug.Log (level);
 	}
 }
 
