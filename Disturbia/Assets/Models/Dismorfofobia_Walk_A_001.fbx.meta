@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: 760c6d4da718e1d41b20256e0f2d2b33
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bn_Head_A_001
+    100002: Bn_L_Arm_A_001
+    100004: Bn_L_Arm_B_001
+    100006: Bn_L_Foot_A_001
+    100008: Bn_L_Leg_A_001
+    100010: Bn_L_Leg_B_001
+    100012: Bn_Neck_A_001
+    100014: Bn_Pelvis_A_001
+    100016: Bn_R_Arm_A_001
+    100018: Bn_R_Arm_B_001
+    100020: Bn_R_Foot_A_001
+    100022: Bn_R_Hand_B_001
+    100024: Bn_R_Leg_A_001
+    100026: Bn_R_Leg_B_001
+    100028: Bn_Spine_A_001
+    100030: Bn_Spine_B_001
+    100032: Dismorfofobia_A_001
+    100034: //RootNode
+    100036: GlobalCtrl_A_001
+    100038: Rig_Dismorfofobia_A_001
+    400000: Bn_Head_A_001
+    400002: Bn_L_Arm_A_001
+    400004: Bn_L_Arm_B_001
+    400006: Bn_L_Foot_A_001
+    400008: Bn_L_Leg_A_001
+    400010: Bn_L_Leg_B_001
+    400012: Bn_Neck_A_001
+    400014: Bn_Pelvis_A_001
+    400016: Bn_R_Arm_A_001
+    400018: Bn_R_Arm_B_001
+    400020: Bn_R_Foot_A_001
+    400022: Bn_R_Hand_B_001
+    400024: Bn_R_Leg_A_001
+    400026: Bn_R_Leg_B_001
+    400028: Bn_Spine_A_001
+    400030: Bn_Spine_B_001
+    400032: Dismorfofobia_A_001
+    400034: //RootNode
+    400036: GlobalCtrl_A_001
+    400038: Rig_Dismorfofobia_A_001
+    4300000: Dismorfofobia_A_001
+    7400000: Rig_Dismorfofobia_A_001|Dismorfofobia_Idle
+    7400002: Rig_Dismorfofobia_A_001|Dismorfofobia_WalkCycle
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Dismorfofobia_A_001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 0
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Rig_Dismorfofobia_A_001|Dismorfofobia_Idle
+      takeName: Rig_Dismorfofobia_A_001|Dismorfofobia_Idle
+      firstFrame: 2
+      lastFrame: 63
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dismorfofobia_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_L_Leg_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_L_Leg_A_001/Bn_L_Leg_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_L_Leg_A_001/Bn_L_Leg_B_001/Bn_L_Foot_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_R_Leg_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_R_Leg_A_001/Bn_R_Leg_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_R_Leg_A_001/Bn_R_Leg_B_001/Bn_R_Foot_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_L_Arm_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_L_Arm_A_001/Bn_L_Arm_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_Neck_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_Neck_A_001/Bn_Head_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_R_Arm_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_R_Arm_A_001/Bn_R_Arm_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_R_Arm_A_001/Bn_R_Arm_B_001/Bn_R_Hand_B_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Rig_Dismorfofobia_A_001|Dismorfofobia_WalkCycle
+      takeName: Rig_Dismorfofobia_A_001|Dismorfofobia_WalkCycle
+      firstFrame: 1
+      lastFrame: 36
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dismorfofobia_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_L_Leg_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_L_Leg_A_001/Bn_L_Leg_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_L_Leg_A_001/Bn_L_Leg_B_001/Bn_L_Foot_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_R_Leg_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_R_Leg_A_001/Bn_R_Leg_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_R_Leg_A_001/Bn_R_Leg_B_001/Bn_R_Foot_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_L_Arm_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_L_Arm_A_001/Bn_L_Arm_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_Neck_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_Neck_A_001/Bn_Head_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_R_Arm_A_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_R_Arm_A_001/Bn_R_Arm_B_001
+        weight: 1
+      - path: Rig_Dismorfofobia_A_001/GlobalCtrl_A_001/Bn_Pelvis_A_001/Bn_Spine_A_001/Bn_Spine_B_001/Bn_R_Arm_A_001/Bn_R_Arm_B_001/Bn_R_Hand_B_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

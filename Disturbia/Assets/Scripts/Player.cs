@@ -9,15 +9,18 @@ public class Player : MonoBehaviour {
 	public Peso peso;
 	public Fame fame;
 	public Ansia ansia;
+
+	public Animator animator;
+
 	public ObjectInteraction objectInteraction;
+
 	public int numcibi;
 	//public int numvomiti;
+	public int numpillole;
+
 	public int points;
-
-
-	public bool isInside() {
-		return inside;
-	}
+	private Vector3 lastPos;
+	
 
 
 	// Use this for initialization
@@ -30,7 +33,10 @@ public class Player : MonoBehaviour {
 		numcibi = 0;
 		//numvomiti = 0;
 		points = 0;
+		numpillole = 0;
 		Screen.showCursor = false;
+		lastPos = transform.position;
+		animator = GetComponent<Animator> ();
 
 	}
 	
@@ -48,14 +54,21 @@ public class Player : MonoBehaviour {
 		/*PESO*/
 		peso.handleGameplay ();
 
-		/*INTERAZIONE CON GLI OGGETTI*/
-		objectInteraction.HandleCollisions ();
+
 
 		//Debug.Log (points);
-		if (points == 10)
-			GUIObject.getInstance.Vittoria ();
+		//Debug.Log (ansia.Level);
 
-		Debug.Log (points);
+		//GESTIONE PUNTEGGIO
+		if (GUIObject.getInstance.orologio < 0) {
+			if (points == 10 && (int)GUIObject.getInstance.timer == 3)
+				GUIObject.getInstance.Vittoria ();
+			else if (points == 5 && (int)GUIObject.getInstance.timer == 3)
+				GUIObject.getInstance.SemiVittoria();
+			else
+				GUIObject.getInstance.GameOver ();
+		}
+		//Debug.Log (points);
 		//Shortcut nel caso sia necessario uscire o riavviare forzatamente
 		if (Input.GetKey(KeyCode.Escape))
 		    Application.Quit();
@@ -63,17 +76,25 @@ public class Player : MonoBehaviour {
 			Application.LoadLevel ("level1");
 	}
 
+	public bool isMoving() {
+		if (lastPos!=transform.position) {
+			lastPos = transform.position;
+			return true; 
+		}
+
+		return false;
+	}
+
 	/*COLLISIONI/TRIGGER*/
 	
 	public void OnTriggerEnter (Collider other){
-		inside = true;
+		/*INTERAZIONE CON GLI OGGETTI*/
+		objectInteraction.HandleCollisions (other.gameObject);
 
 	}
 	
 	public void OnTriggerExit(Collider other ){
-		inside = false;
-
-	
+		GUIObject.getInstance.CanInteract (false);
 				
 			/*//Vomito 1 volta : aumenta l'ansia 
 			if (PlayerObject.getInstance.numvomiti == 1) {
@@ -92,7 +113,7 @@ public class Player : MonoBehaviour {
 				PlayerObject.getInstance.numvomiti = 0;
 			}
 			*/
-		Camera.main.particleSystem.Stop ();
+		particleSystem.Stop ();
 			
 		if (other.tag == "Bilancia")
 			GUIObject.getInstance.suBilancia = false;
@@ -125,7 +146,7 @@ public class ObjectInteraction {
 	private Vector3 offset; 
 	private string hitTag;
 	private bool dragObject;
-
+	
 
 	public void DragObject(bool value){
 		dragObject = value;
@@ -144,57 +165,69 @@ public class ObjectInteraction {
 		}
 	}
 
-	public void HandleCollisions(){//scopro di fronte a quale oggetto mi trovo tramite raycast
+	public void HandleCollisions(GameObject o){//scopro di fronte a quale oggetto mi trovo tramite raycast
 
-		// raggio
+		/*// raggio
 		Ray ray = Camera.main.ScreenPointToRay (new Vector3 (Screen.width/2,Screen.height/2,0));
 		//oggetto colpito
-		RaycastHit hit = new RaycastHit();
-		
+		RaycastHit hit = new RaycastHit();*/
+
+
 		//lancio raggio e controllo il tag di cosa ho colpito 
-		if (Physics.Raycast(ray,out hit,0.5F)){
-			hitTag = hit.transform.tag;
-			if ((hitTag == "Mobile" || hitTag == "Cibo" || hitTag == "Bilancia" || hitTag=="Water") && PlayerObject.getInstance.isInside()) { //quando sono di fronte e vicino a un mobile o cibo
-				GUIObject.getInstance.CanInteract(true);
-				
-				if (hitTag == "Cibo"){//Se sono di fronte a un cibo...
-					GUIObject.getInstance.setObj("Cibo");
+		if (o.renderer.isVisible){
+			hitTag = o.tag;
+			GUIObject.getInstance.CanInteract(true);
 
-					int sodd = hit.transform.gameObject.GetComponent<Cibo>().Soddisfazione;
-					double cal = hit.transform.gameObject.GetComponent<Cibo>().Calorie;
-					int riemp = hit.transform.gameObject.GetComponent<Cibo>().Riempimento;
+			if (hitTag == "Cibo"){//Se sono di fronte a un cibo...
+				GUIObject.getInstance.setObj("Cibo",o);
 
-					ArrayList info = new ArrayList();
-					info.Add(sodd);
-					info.Add(cal);
-					info.Add(riemp);
-					info.Add(hit.transform.gameObject);
-					GUIObject.getInstance.InfoCibo(info); //invio informazioni utili sul cibo
-				}
-				
-				else if (hitTag == "Mobile"){ //se sono di fronte a un mobile
-					GUIObject.getInstance.setObj("Mobile");
-					HandleDrag(hit.transform.gameObject);//gestisci trascinamento
+				int sodd = o.GetComponent<Cibo>().Soddisfazione;
+				double cal = o.GetComponent<Cibo>().Calorie;
+				int riemp = o.GetComponent<Cibo>().Riempimento;
+				string nome = o.GetComponent<Cibo>().Nome;
 
-				}
-
-				else if (hitTag == "Bilancia"){
-					GUIObject.getInstance.setObj("Bilancia");
-
-				}
-
-				else if (hitTag == "Water")
-					GUIObject.getInstance.setObj("Water");
-				
+				ArrayList info = new ArrayList();
+				info.Add(sodd);
+				info.Add(cal);
+				info.Add(riemp);
+				info.Add(nome);
+				GUIObject.getInstance.InfoCibo(info); //invio informazioni utili sul cibo
 			}
-			else
-				GUIObject.getInstance.CanInteract(false);//se non sono di fronte e vicino ad un oggetto, non posso interagire
+			
+			else if (hitTag == "Mobile"){ //se sono di fronte a un mobile
+				GUIObject.getInstance.setObj("Mobile",o);
+				HandleDrag(o);//gestisci trascinamento
+
+			}
+
+			else if (hitTag == "Bilancia"){
+				GUIObject.getInstance.setObj("Bilancia",o);
+
+			}
+
+			else if (hitTag == "Water")
+				GUIObject.getInstance.setObj("Water",o);
+
+			else if (hitTag == "Pillola")
+				GUIObject.getInstance.setObj("Pillola",o);
+
+			else if (hitTag == "Allenamento")
+				GUIObject.getInstance.setObj("Allenamento",o);
+				
 		}
 
-		else 
+		else
 			GUIObject.getInstance.CanInteract(false);//se non sono di fronte e vicino ad un oggetto, non posso interagire
+		//Debug.Log (o.renderer.isVisible);
 
 	}
+	
+
+	public void HandleExit(){
+		GUIObject.getInstance.CanInteract (false);
+
+	}
+
 
 }
 
@@ -216,22 +249,23 @@ public class Ansia {
 	}
 	
 
-	public int getLevel ()
-	{
-		return level;
-	}
-
-	public void setLevel(int value)
-	{
-		if (value>=0 && value<=100)
+	public int Level {
+		set {
+			if (value>=0 && value<=100)
 			level = value;
-		else {
-			if (value> 100)
-				level = 100;
-			if (value < 0)
-				level = 0;
+			else {
+				if (value> 100)
+					level = 100;
+				if (value < 0)
+					level = 0;
+			}
 		}
+
+		get {return level;}
+
+
 	}
+	
 
 	public void updateBlur() //aggiorna l'effetto blur all'aumentare dell'ansia: più alta è l'ansia più evidente è l'effetto
 	{
@@ -245,7 +279,7 @@ public class Ansia {
 	}
 
 	public void handleGameplay(){ //traduce ogni livello d'ansia in una conseguenza per il gameplay
-		if (level >= 100)
+		if (level >= 100 )
 			GUIObject.getInstance.GameOver(); //se l'ansia raggiunge 100 è game over
 
 		GUIObject.getInstance.UpdateAnsiaGUI (level);
@@ -294,7 +328,7 @@ public class Fame {
 			if (level == 0)
 			{
 				GUIObject.getInstance.fameCountDown(timer);
-				if (timer < 0) 
+				if (timer < 0 ) 
 					GUIObject.getInstance.GameOver();//se non mangio entro 5 minuti è gameover
 			}
 			else
@@ -340,8 +374,16 @@ public class Peso {
 		get {return lastlevel;}
 	}
 
+	public double Timer {
+		set {timer = value;
+			oldtimeseconds = (int)value;
+		}
+		get {return timer;}
+	}
+
 	public void handleGameplay(){
 		timer += Time.deltaTime;
+
 		timeseconds = (int)timer;
 		if (timeseconds > oldtimeseconds+60) 
 		{
@@ -349,11 +391,10 @@ public class Peso {
 			oldtimeseconds = timeseconds;
 		}
 
-		if ((int)timer%180 == 0 && (int)timer>0) {
+		if ((int)timer%60 == 0 && (int)timer>0) {
 			//setta il timer della GUI: se non ti pesi entro 30 secondi aumenta l'ansia	GUIObject.getInstance.startTimer = true;
 			GUIObject.getInstance.startpesoTimer = true;
 			GUIObject.getInstance.pesoTimer = 30;
-			GUIObject.getInstance.pesoCount = true;
 		}
 		//Debug.Log (level);
 	}

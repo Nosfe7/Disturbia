@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Cibo.cs" />
      <Compile Include="Assets\Scripts\GameGUI.cs" />
+     <Compile Include="Assets\Scripts\Mostro.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />

@@ -2,25 +2,43 @@
 using System.Collections;
 
 public class Mostro : MonoBehaviour {
-	private Vector3 offset;
+	private NavMeshAgent agent;
+	private Vector3 playerPos;
+	private Vector3 relativePos;
+	private Animator animator;
 	//Vector3 previous_direction;
 	// Use this for initialization
 	void Start () {
-		offset =  transform.position - Camera.main.ScreenToWorldPoint(new Vector3 (Screen.width/2,Screen.height/2,0));
-
+		agent = GetComponent<NavMeshAgent>();
+		animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		/*if (!Camera.main.transform.forward.Equals(previous_direction)){
-		    transform.RotateAround (Camera.main.transform.position, Camera.main.transform.up, Camera.main.transform.rotation.eulerAngles.y);
-		}
-		previous_direction = Camera.main.transform.forward;
-		 */
-		transform.position = Camera.main.ScreenToWorldPoint(new Vector3 (Screen.width/2,Screen.height/2,0)) + offset;
-			
+		playerPos = PlayerObject.getInstance.transform.position;
 
+		agent.SetDestination (playerPos);
+		agent.updateRotation = true;
+
+
+		if (agent.remainingDistance<agent.stoppingDistance) {//Se il mostro è vicino..
+			//Il mostro è fermo
+			animator.Play("idle");
+
+			//Il mostro si gira verso il giocatore
+			relativePos = new Vector3 (transform.position.x - playerPos.x, 0.0f, transform.position.z - playerPos.z);
+
+			Quaternion targetRotation = Quaternion.LookRotation (-relativePos);
+
+			transform.localRotation = Quaternion.Slerp (transform.localRotation, targetRotation, Time.deltaTime*10);
+
+				} else {//Se invece è lontano cammina
+						animator.Play("walking");
+
+				}
+		
+		
 	}
 
 }

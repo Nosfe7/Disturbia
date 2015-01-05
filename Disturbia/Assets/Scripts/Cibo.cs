@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Cibo : MonoBehaviour {
 
+	public string nome;
 	public int soddisfazione;
 	public double calorie;
 	public int riempimento;
@@ -17,6 +18,12 @@ public class Cibo : MonoBehaviour {
 
 	}
 */
+	public string Nome {
+		get {return nome;}
+
+
+	}
+
 	public int Soddisfazione{
 		set {
 			if (soddisfazione>= 0 && soddisfazione<=100) 
