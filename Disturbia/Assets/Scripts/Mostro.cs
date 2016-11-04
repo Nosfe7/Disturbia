@@ -29,12 +29,10 @@ public class Mostro : MonoBehaviour {
 		agent.SetDestination (playerPos);
 		agent.updateRotation = true;
 
-
 		//Il mostro si gira verso il giocatore
 		relativePos = new Vector3 (transform.position.x - playerPos.x, 0.0f, transform.position.z - playerPos.z);
 		
-		Quaternion targetRotation = Quaternion.LookRotation (relativePos);
-		
+		Quaternion targetRotation = Quaternion.LookRotation (relativePos);	
 		transform.localRotation = Quaternion.Slerp (transform.localRotation, targetRotation, Time.deltaTime*10);
 
 
