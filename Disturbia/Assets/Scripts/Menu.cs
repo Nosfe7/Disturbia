@@ -320,10 +320,10 @@ class Button {
 	
 	public void handleColor(){
 		if (isSelected) { 
-						obj.renderer.material.SetColor ("_Color", Color.red);
-				} else { 
-						obj.renderer.material.SetColor ("_Color", Color.gray);
-				}
+			obj.renderer.material.SetColor ("_Color", Color.red);
+		} else { 
+			obj.renderer.material.SetColor ("_Color", Color.gray);
+		}
 	}
 }
 
