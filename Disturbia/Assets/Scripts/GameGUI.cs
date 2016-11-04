@@ -620,7 +620,7 @@ public class AllenamentoGUI:InteractiveObjectGUI{
 				GUIObject.getInstance.startAllenamentoTimer = false; //se mi sto allenando non può chiedermi di allenarmi
 				GUIObject.getInstance.stateOrologio = "";
 
-				GUIObject.getInstance.upGUIText.text += "\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+numflessioni;
+				GUIObject.getInstance.upGUIText.text += "\t"+numflessioni;
 				camerAnimator.Play("training");
 				float stateOfAnimation = camerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
@@ -638,23 +638,28 @@ public class AllenamentoGUI:InteractiveObjectGUI{
 
 				/*10 flessioni = una sessione di allenamento = meno ansia*/
 				if (numflessioni == 10 &&  !maxFlessioni) {
+					
 					PlayerObject.getInstance.ansia.Level-=10;
 					PlayerObject.getInstance.calorieAssunte.Level-=5;
 					PlayerObject.getInstance.numallenamenti++;
 					maxFlessioni = true;
 					trainingMode = false;
+					
 				}
 				
 				else if (numflessioni<10) {
 					if (numflessioni == 5 && !cinqueFlessioni){
+						
 						PlayerObject.getInstance.calorieAssunte.Level-=5;
 						cinqueFlessioni = true;
 					}
 					maxFlessioni = false;
 				}
+				
 			}		
 		
 			else {
+				
 				trainingMode = true; //se non sono ancora in allenamento entro in allenamento col tasto sinistro
 				camerAnimator.enabled = true;
 				GUIObject.getInstance.startAllenamentoTimer = false;
@@ -665,6 +670,7 @@ public class AllenamentoGUI:InteractiveObjectGUI{
 		}
 
 		else {
+			
 			numflessioni = 0;
 			cinqueFlessioni = false;
 			trainingMode = false;
@@ -673,6 +679,7 @@ public class AllenamentoGUI:InteractiveObjectGUI{
 				GUIObject.getInstance.upGUIText.text = "Ti sei allenato abbastanza";
 				
 			}
+			
 		}
 
 	}
@@ -686,10 +693,12 @@ public class FrigoGUI:InteractiveObjectGUI {
 	int leftDirection, rightDirection;
 
 	public FrigoGUI() {
+		
 		sinistro = GameObject.Find ("sportello_sinistro");
 		destro = GameObject.Find ("sportello_destro");
 		leftDirection = 1;
 		rightDirection = -1;
+		
 	}
 
 	override public void handleInteraction() {
@@ -716,10 +725,12 @@ public class ArmadioGUI:InteractiveObjectGUI {
 	int leftDirection, rightDirection;
 
 	public ArmadioGUI() {
+		
 		sinistro = GameObject.Find ("antasinistra");
 		destro = GameObject.Find ("antadestra");
 		leftDirection = 1;
 		rightDirection = -1;
+		
 	}
 
 	override public void handleInteraction() {
