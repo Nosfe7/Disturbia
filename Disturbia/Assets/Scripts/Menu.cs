@@ -56,32 +56,32 @@ public class Menu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (state != previous) {
-						switch (state) { //da uno stato indico a quali altri stati posso giungere
-							case states.HOME:
-								menu = new MenuType(home,state, new states[2]{states.CONTINUE, states.EXTRA});
-								break;
-							case states.CONTINUE:
-								menu = new MenuType(cont,state, new states[4]{states.GAME,states.MAP,states.REFERENCES, states.HOME});
-								break;
-							case states.MAP:
-								menu = new MenuType(map,state, new states[1]{states.CONTINUE});
-								break;
-							case states.REFERENCES:
-								menu = new MenuType(references,state, new states[1]{states.CONTINUE});;
-								break;
-							case states.EXTRA:
-								menu = new MenuType(extra,state, new states[3]{states.CREDITS, states.REWARDS, states.HOME});
-								break;
-							case states.CREDITS:
-								menu = new MenuType(credits,state, new states[1]{states.EXTRA});
-								break;
-							case states.REWARDS:
-								menu = new MenuType(rewards,state, new states[1]{states.EXTRA});
-								break;
-							case states.GAME:
-								Application.LoadLevel("level1");
-								break;	
-						}
+			switch (state) { //da uno stato indico a quali altri stati posso giungere
+				case states.HOME:
+					menu = new MenuType(home,state, new states[2]{states.CONTINUE, states.EXTRA});
+					break;
+				case states.CONTINUE:
+					menu = new MenuType(cont,state, new states[4]{states.GAME,states.MAP,states.REFERENCES, states.HOME});
+					break;
+				case states.MAP:
+					menu = new MenuType(map,state, new states[1]{states.CONTINUE});
+					break;
+				case states.REFERENCES:
+					menu = new MenuType(references,state, new states[1]{states.CONTINUE});;
+					break;
+				case states.EXTRA:
+					menu = new MenuType(extra,state, new states[3]{states.CREDITS, states.REWARDS, states.HOME});
+					break;
+				case states.CREDITS:
+					menu = new MenuType(credits,state, new states[1]{states.EXTRA});
+					break;
+				case states.REWARDS:
+					menu = new MenuType(rewards,state, new states[1]{states.EXTRA});
+					break;
+				case states.GAME:
+					Application.LoadLevel("level1");
+					break;	
+			}
 
 			previous = state;
 		}
