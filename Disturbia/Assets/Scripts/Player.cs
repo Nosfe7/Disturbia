@@ -300,9 +300,11 @@ public class Fame {
 		GUIObject.getInstance.UpdateFameGUI (level);
 	}
 
-	public void handleGameplay(){ //traduce ogni livello di fame in una conseguenza per il gameplay
+	//traduce ogni livello di fame in una conseguenza per il gameplay
+	public void handleGameplay(){ 
+
 		if (level >= 100)
-			GUIObject.getInstance.GameOver ();//se ho mangiato troppo è gameover
+			GUIObject.getInstance.GameOver ();
 		else
 		{
 			if (level == 1)
@@ -377,7 +379,6 @@ public class Peso {
 			GUIObject.getInstance.pesoTimer = 30;
 			GUIObject.getInstance.stateOrologio = "Pesati!";
 		}
-		//Debug.Log (level);
 	}
 }
 
