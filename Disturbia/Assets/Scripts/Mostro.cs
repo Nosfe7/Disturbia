@@ -43,10 +43,8 @@ public class Mostro : MonoBehaviour {
 			animation.Play((string)animations[0]);
 
 		} else if (agent.remainingDistance>=agent.stoppingDistance) {//Se invece è lontano cammina
-					animation.Play((string)animations[4]);
-
-
-				}
+			animation.Play((string)animations[4]);
+		}
 		
 		
 	}
