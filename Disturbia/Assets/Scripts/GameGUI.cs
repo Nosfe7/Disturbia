@@ -226,9 +226,6 @@ public class GameGUI : MonoBehaviour {
 		orologio = 0;
 
 
-		/*Carica le immagini del puntator0e come texture
-		(L'immagin verrà ovviamente
-		sostituita dagli artisti con una manina :) )*/
 
 		puntatore =(Texture)Resources.Load("2D/puntatore");
 		player = GameObject.Find("First Person Controller").GetComponent<Player>();
@@ -533,36 +530,36 @@ public class WaterGUI:InteractiveObjectGUI{
 		//Posso iniziare sessione di vomito solo se ho premuto ctrl (massimo 3 sessioni)
 		if (Input.GetKey (KeyCode.LeftControl) && numvomiti < 3 && PlayerObject.getInstance.numcibi > 0) { 
 						
-					GUIObject.getInstance.guiTexture.texture = GUIObject.getInstance.puntatore;
+				GUIObject.getInstance.guiTexture.texture = GUIObject.getInstance.puntatore;
 
-					if (GUIObject.getInstance.GetLeftMouseHold ()) { //se sto premendo tasto sinistro posso vomitare nel water
-	
-						//Se vomito risetto il timer del vomito
-						GUIObject.getInstance.startvomitoTimer = false;
-						GUIObject.getInstance.vomitoTimer = 30;
-						GUIObject.getInstance.stateOrologio = "";
-						
+				if (GUIObject.getInstance.GetLeftMouseHold ()) { //se sto premendo tasto sinistro posso vomitare nel water
+
+					//Se vomito risetto il timer del vomito
+					GUIObject.getInstance.startvomitoTimer = false;
+					GUIObject.getInstance.vomitoTimer = 30;
+					GUIObject.getInstance.stateOrologio = "";
 
 
-						//Vomito tante volte quanto ho mangiato: quando vomito l'ansia diminuisce di 10
-						PlayerObject.getInstance.ansia.Level -= 10;
-						PlayerObject.getInstance.particleSystem.Play ();
-						PlayerObject.getInstance.numcibi--;
-						
-						
 
-					} else if (GUIObject.getInstance.GetLeftMouseReleased ()) { //se sto premendo tasto sinistro vomito nel water
-		
-							Camera.main.particleSystem.Stop ();
-		
-		
-					}
+					//Vomito tante volte quanto ho mangiato: quando vomito l'ansia diminuisce di 10
+					PlayerObject.getInstance.ansia.Level -= 10;
+					PlayerObject.getInstance.particleSystem.Play ();
+					PlayerObject.getInstance.numcibi--;
+
+
+
+				} else if (GUIObject.getInstance.GetLeftMouseReleased ()) { //se sto premendo tasto sinistro vomito nel water
+
+						Camera.main.particleSystem.Stop ();
+
+
+				}
 
 			} else {
-					if (numvomiti>=3)
-						GUIObject.getInstance.guiText.text = "Hai vomitato abbastanza";
-					if (Input.GetKeyUp(KeyCode.LeftControl))
-		    			numvomiti ++;			    		
+				if (numvomiti>=3)
+					GUIObject.getInstance.guiText.text = "Hai vomitato abbastanza";
+				if (Input.GetKeyUp(KeyCode.LeftControl))
+					numvomiti ++;			    		
 			}	
 	}
 
@@ -726,7 +723,7 @@ public class ArmadioGUI:InteractiveObjectGUI {
 	}
 
 	override public void handleInteraction() {
-		Debug.Log ("sono qui");
+
 		GUIObject.getInstance.guiTexture.texture = GUIObject.getInstance.puntatore;
 		GUIObject.getInstance.upGUIText.text = "ARMADIO\n";
 
@@ -737,6 +734,7 @@ public class ArmadioGUI:InteractiveObjectGUI {
 				leftDirection=0;
 			if (destro.transform.eulerAngles.y>200  )
 				rightDirection = 0;
+			
 			sinistro.transform.RotateAround(new Vector3(-41.35708f,2.4051729f,-21.05882f),Vector3.up,leftDirection*240*Time.deltaTime);
 			destro.transform.RotateAround(new Vector3(-41.35708f,2.4051729f,-19.65957f),Vector3.up,rightDirection*240*Time.deltaTime);
 		}
