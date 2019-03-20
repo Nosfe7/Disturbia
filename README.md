@@ -1,4 +1,5 @@
 Disturbia
 =========
 
-Repository del progetto Disturbia per il corso di Videogame Design and Programming
+
+Repository of the Disturbia project for the Videogame Design and Programming course
